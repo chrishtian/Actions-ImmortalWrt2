@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Build mt7981
+name: Build mt7986
 
 on:
   repository_dispatch:
@@ -24,10 +24,10 @@ on:
           - 'false'
 
 env:
-  REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x
+  REPO_URL: https://github.com/lyanoa220/immortalwrt-mt798x-512m
   REPO_BRANCH: openwrt-21.02
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: mt7981.config
+  CONFIG_FILE: mt7986.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
@@ -142,25 +142,7 @@ jobs:
         name: ImmortalWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
-    - name: Generate release tag
-      id: tag
-      if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success' && !cancelled()
-      run: |
-        echo "release_tag=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
-        touch release.txt
-        echo "## hanwckf's ImmortalWrt mt7981 Release $(date +"%Y.%m.%d-%H:%M")" >> release.txt
-        echo "- factory.bin" >> release.txt
-        echo "  360T7-md5: $(md5sum ${{ env.FIRMWARE }}/*360-t7*factory.bin | cut -d" " -f1)" >> release.txt
-        echo "  WR30U-112m-md5: $(md5sum ${{ env.FIRMWARE }}/*112m*factory.bin | cut -d" " -f1)" >> release.txt
-        echo "- squashfs-sysupgrade.bin" >> release.txt
-        echo "  360T7-md5: $(md5sum ${{ env.FIRMWARE }}/*360-t7*sysupgrade.bin | cut -d" " -f1)" >> release.txt
-        echo "  360T7-sha256: $(grep ".*360-t7.*sysupgrade.bin" ${{ env.FIRMWARE }}/sha256sums | grep -oE "\w{64}")" >> release.txt
-        echo "  WR30U-112m-md5: $(md5sum ${{ env.FIRMWARE }}/*112m*sysupgrade.bin | cut -d" " -f1)" >> release.txt
-        echo "  WR30U-112m-sha256: $(grep ".*112m.*sysupgrade.bin" ${{ env.FIRMWARE }}/sha256sums | grep -oE "\w{64}")" >> release.txt
-        echo "  WR30U-stock-md5: $(md5sum ${{ env.FIRMWARE }}/*stock*sysupgrade.bin | cut -d" " -f1)" >> release.txt
-        echo "  WR30U-stock-sha256: $(grep ".*stock.*sysupgrade.bin" ${{ env.FIRMWARE }}/sha256sums | grep -oE "\w{64}")" >> release.txt
-        echo "status=success" >> $GITHUB_OUTPUT
-        mv ImmortalWrt/.config ImmortalWrt/build.config
+   
 
     - name: Upload firmware to release
       uses: mikepenz/action-gh-release@main
