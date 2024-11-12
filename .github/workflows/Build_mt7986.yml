@@ -24,7 +24,7 @@ on:
           - 'false'
 
 env:
-  REPO_URL: https://github.com/lyanoa220/immortalwrt-mt798x-512m
+  REPO_URL: https://github.com/chrishtian/immortalwrt-mt798x-512m
   REPO_BRANCH: openwrt-21.02
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: mt7986.config
