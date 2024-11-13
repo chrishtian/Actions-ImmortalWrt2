@@ -17,10 +17,11 @@ git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/l
 # remove v2ray-geodata package from feeds (openwrt-22.03 & master)
 rm -rfv feeds/packages/net/v2ray-geodata
 git clone https://github.com/Ljzkirito/v2ray-geodata feeds/packages/net/v2ray-geodata
-rm - rfv feeds/luci/applications/luci-app-passwall
-git clone https://github.com/kenzok8/small-package/tree/main/luci-app-passwall
-rm - rfv feeds/packages/net/mwan3
-git clone https://github.com/kenzok8/small-package/tree/main/mwan3
+rm -rfv feeds/luci/applications/luci-app-passwall
+rm -rfv feeds/packages/net/mwan3
+git clone https://github.com/kenzok8/small-package
+mv small-package/luci-app-passwall feeds/luci/applications/
+mv small-package/mwan3 packages/net/
 rm -rfv feeds/packages/net/mosdns
 find ./ | grep Makefile | grep luci-app-mosdns | xargs rm -fv
 git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
