@@ -13,10 +13,10 @@
 # golang 1.23.x
 rm -rfv feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/lang/golang
-
 # remove v2ray-geodata package from feeds (openwrt-22.03 & master)
 rm -rfv feeds/packages/net/v2ray-geodata
 git clone https://github.com/Ljzkirito/v2ray-geodata feeds/packages/net/v2ray-geodata
+git clone https://github.com/kenzok8/small-package
 rm -rfv feeds/luci/applications/luci-app-passwall
 mv small-package/luci-app-passwall feeds/luci/applications/
 rm -rfv feeds/packages/net/mwan3
